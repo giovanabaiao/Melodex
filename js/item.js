@@ -3,3 +3,21 @@
 // guardar las propiedades de la API, la valoración, el comentario y la fecha de guardado.
 // generar el HTML resumido de cada item y el panel de detalles.
 // convertir un Item en un objeto preparado para localStorage y reconstruirlo desde allí.
+
+/* Sujestiones:
+
+id
+title
+artwork
+user.name
+genre
+mood
+duration
+release_date
+description
+
+valoracion
+comentario
+fechaGuardado
+
+*/
