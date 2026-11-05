@@ -1,3 +1,21 @@
-/* Estilos específicos de la sección Mi colección: 
-filtros, selectores de ordenación, lista de elementos guardados, tarjetas de la colección 
-y panel de detalles. */
+/* Distribución de la lista guardada y su panel de detalle. */
+.coleccion-contenido {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+#controles-coleccion {
+  margin-bottom: 24px;
+}
+
+#controles-coleccion:empty {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .coleccion-contenido {
+    grid-template-columns: 1fr;
+  }
+}
