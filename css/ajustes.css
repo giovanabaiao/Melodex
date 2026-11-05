@@ -1,3 +1,24 @@
-/* Estilos específicos de la sección Ajustes: 
-selector de tema, interruptor de modo claro y oscuro, 
-opciones de configuración y apariencia de los controles. */
+/* Estilos específicos de la sección Ajustes. */
+
+.ajuste {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 400px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  background: var(--color-tarjeta);
+}
+
+.ajuste label {
+  cursor: pointer;
+}
+
+#interruptor-tema {
+  width: 2.75rem;
+  height: 1.4rem;
+  accent-color: var(--color-principal);
+  cursor: pointer;
+}

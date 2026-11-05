@@ -1,9 +1,27 @@
-<section>
-  <h1>Título provisional: Colección</h1>
-  <!-- Función futura: presentar la colección del usuario. -->
-  <!-- Zona futura para los controles de filtrado. -->
-  <!-- Zona futura para los controles de ordenación. -->
-  <!-- Zona futura para la lista de items guardados. -->
-  <!-- Zona futura para el mensaje de colección vacía. -->
-  <!-- Zona futura para el panel de detalles del item seleccionado. -->
-</section>
+<h2>Mi Colección</h2>
+
+<!-- Aquí se añadirán los filtros y controles de ordenación. -->
+<div id="controles-coleccion" class="panel"></div>
+
+<!-- Distribuye la colección y el panel de detalle. -->
+<div class="coleccion-contenido">
+
+  <!-- Lista de items recuperados desde localStorage. -->
+  <section id="items-coleccion" class="panel">
+    <h3>Items guardados</h3>
+
+    <div id="lista-coleccion">
+      <p>Todavía no has guardado ningún item.</p>
+    </div>
+  </section>
+
+  <!-- Muestra todas las propiedades del item seleccionado. -->
+  <div id="panel-coleccion" class="panel">
+    <h3>Item seleccionado</h3>
+
+    <div id="detalle-coleccion">
+      <p>Selecciona un item para ver sus propiedades.</p>
+    </div>
+  </div>
+
+</div>
