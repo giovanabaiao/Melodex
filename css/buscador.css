@@ -1,3 +1,21 @@
-/* Estilos específicos de la sección Buscador: 
-formulario de búsqueda, lista y tarjetas de resultados, elemento seleccionado, 
-panel de detalles y estados de carga, error o ausencia de resultados. */
+/* Distribución de resultados y detalle del buscador. */
+.buscador-contenido {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+#busqueda {
+  margin-bottom: 24px;
+}
+
+#estado-busqueda:empty {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .buscador-contenido {
+    grid-template-columns: 1fr;
+  }
+}
