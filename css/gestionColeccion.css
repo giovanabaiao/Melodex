@@ -1,3 +1,8 @@
-/* Estilos específicos de la sección Gestionar colección: 
-formularios de edición, campos de valoración y comentario, botones de modificar y eliminar, 
-mensajes de confirmación y botón para vaciar la colección. */
+/* Acciones globales y lista de gestión de la colección. */
+#acciones-gestion {
+  margin-bottom: 24px;
+}
+
+#lista-gestion:empty {
+  display: none;
+}

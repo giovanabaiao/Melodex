@@ -1,21 +1,18 @@
 # Melodex
-<!-- Completar o confirmar el nombre de la aplicación. -->
 
 Aplicación web desarrollada para la asignatura **Sistemas Web**.
 
 ## Descripción
-<!-- Completar la descripción del proyecto. -->
 
-> Pendiente de completar.
+Melodex permite buscar canciones en la API pública de Audius y guardarlas en una colección personal con una valoración y un comentario.
 
 ## API utilizada
-<!-- Completar o confirmar la API utilizada y su documentación. -->
 
 - **Nombre:** Audius
-- **Documentación:** [Enlace a la documentación]
+- **Documentación:** https://docs.audius.co/api
+- **URL base:** `https://api.audius.co/v1`
 
-## Integrantes - grupo 9
-<!-- Completar o confirmar la lista de integrantes. -->
+## Integrantes - Grupo 9
 
 - Giovana Baião
 - Ilargi Quetzalli Matilde López
@@ -23,31 +20,26 @@ Aplicación web desarrollada para la asignatura **Sistemas Web**.
 - Roberto Rodriguez Paredes
 
 ## Tecnologías
-<!-- Completar las funcionalidades previstas o implementadas. -->
 
 - HTML
 - CSS
 - JavaScript
-- API pública
+- Audius API
 - localStorage
 
-<!-- Documentar las decisiones técnicas del grupo. -->
+## Decisiones técnicas
+
+- Las plantillas HTML se guardan en la carpeta `templates/` y se cargan con `fetch`.
+- `INICIALIZADORES`, definido en `js/app.js`, contiene las funciones que se ejecutan después de cargar cada plantilla.
+- La colección personal se guarda en el navegador mediante `localStorage`.
+- La aplicación debe ejecutarse mediante HTTP para que la carga de plantillas funcione correctamente.
 
 ## Ejecución
-<!-- Completar las instrucciones necesarias para ejecutar el proyecto. -->
 
-Abrir el proyecto con **Live Server** o ejecutar:
+Servir la carpeta del proyecto mediante una de estas opciones:
+
+- Utilizar la extensión **Live Server** de VS Code.
+- Ejecutar desde la carpeta del proyecto:
 
 ```bash
 npx serve
-```
-
-## Estado del proyecto
-
-En desarrollo.
-
-## Entregas
-<!-- Completar las entregas y milestones del proyecto. -->
-
-- **Milestone 1:** [Pendiente]
-- **Milestone 2:** [Pendiente]

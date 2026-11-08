@@ -1,20 +1,105 @@
-/* Estilos generales de la aplicación: 
-variables de colores, tipografía, reset básico, body, estructura principal, 
-navegación, espaciados generales y configuración global de los modos claro y oscuro. */
-:root{ /*Ese es el elemento html, las variables aqui valen para el app entero */
-    --color-fondo: #ffffff; /*Color de fondo de la página en el modo claro */
-    --color-texto: #1a1a1a; /*Color del texto en el modo claro */
-    --color-tarjeta: #f2f2f2; /*Color de cajas y cards en el modo claro */
+/* Variables globales para los modos claro y oscuro. */
+:root {
+  --color-fondo: #ffffff;
+  --color-texto: #1a1a1a;
+  --color-tarjeta: #f2f2f2;
+  --color-borde: #cccccc;
+  --color-principal: #007a52;
+  --color-principal-contraste: #ffffff;
+  --color-fondo-secundario: #f7f7f7;
+  --color-control: #ffffff;
 }
 
-[data-theme="dark"]{ /*Cauando el html tiene data-theme="dark" sobreescribe las variables por encima */
-    --color-fondo: #121212; /*Fondo oscuro */
-    --color-texto: #f0f0f0; /*Texto claro (para que exista contrate) */
-    --color-tarjeta: #1e1e1e; /*Cards gris oscuro */
+[data-theme="dark"] {
+  --color-fondo: #121212;
+  --color-texto: #f0f0f0;
+  --color-tarjeta: #1e1e1e;
+  --color-borde: #4a4a4a;
+  --color-principal: #38c996;
+  --color-principal-contraste: #10251d;
+  --color-fondo-secundario: #181818;
+  --color-control: #262626;
 }
 
-body{ /*Estilo del cuerpo de toda la página */
-    background: var(--color-fondo); /*Usa la variable de color de fondo, que cambia según el modo */
-    color: var(--color-texto); /*Usa la variable de color de texto, que cambia según el modo */
-    transition: background 0.3s, color 0.3s; /*Hace el cambio de color ser suave, utilizando un tiempo de cambio para eso */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  transition: background 0.3s, color 0.3s;
+}
+
+#cabecera {
+  padding: 16px;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+#cabecera h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+#pie {
+  padding: 12px 16px;
+  border-top: 1px solid var(--color-borde);
+  text-align: center;
+}
+
+#pie p {
+  margin: 0;
+}
+
+#contenedor-principal {
+  flex: 1;
+  display: flex;
+}
+
+#menu-principal {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 200px;
+  flex-shrink: 0;
+  padding: 16px;
+  border-right: 1px solid var(--color-borde);
+}
+
+#menu-principal button {
+  padding: 8px;
+  text-align: left;
+}
+
+#menu-principal button.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+main {
+  flex: 1;
+  padding: 16px;
+}
+
+.seccion {
+  display: none;
+}
+
+.seccion.activa {
+  display: block;
+}
+
+@media (max-width: 800px) {
+  #contenedor-principal {
+    flex-direction: column;
+  }
+
+  #menu-principal {
+    width: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 1px solid var(--color-borde);
+  }
 }
