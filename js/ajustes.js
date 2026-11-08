@@ -18,7 +18,7 @@ function sincronizarInterruptor(){ //Hace con que el interruptor refleje el tema
 document.addEventListener('change', (evento) => { //Escucha los cambios en cualquier campo de la página
     if (evento.target.id === 'interruptor-tema'){ //Reacciona SOLAMENTE al nuestro interruptor
         const tema = evento.target.checked ? 'dark':'light'; // Interruptor encendido=oscuro, apagado=claro
-        aplicarTema(tema); //Aplica el tema
+        aplicarTema(tema); //A plica el tema
         localStorage.setItem(CLAVE_TEMA, tema); //Guarda el tema en el localStorage
     }   
 })
