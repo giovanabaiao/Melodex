@@ -1,6 +1,6 @@
-const API_BASE_URL = "https://api.audius.co/v1";
+const API_BASE_URL = 'https://api.audius.co/v1';
 
-async function buscarEnApi(termino, tipo) {
+export async function buscarEnApi(termino, tipo) {
   const terminoLimpio = termino.trim();
 
   if (terminoLimpio === "") {
