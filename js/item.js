@@ -5,7 +5,7 @@
 // - Convierte un Item en un objeto plano para localStorage y lo reconstruye desde allí.
 //
 // Propiedades del Item:
-//   API:      id, nombre (title), nombreArtista (user.name), artwork (objeto con URLs),
+//   API:      id, title, nombreArtista (user.name), artwork (objeto con URLs),
 //             genre, mood, duration, releaseDate (release_date), description
 //   Usuario:  valoracion (1-5 o null), comentario, fechaGuardado (ISO)
 //   Derivada: imagen
@@ -44,6 +44,7 @@ export class Item
         this.artwork = datosApi.artwork ?? null; // objeto completo: 
         this.genre = datosApi.genre ?? null;
         this.mood = datosApi.mood ?? null;
+
         this.duration = Number(datosApi.duration) || 0; // segundos
         this.releaseDate = datosApi.release_date ?? null;
         this.description = datosApi.description ?? null;
@@ -92,8 +93,8 @@ export class Item
         return `
             <article class="item-card" data-id="${escapeHTML(this.id)}">
                 <img src="${escapeHTML(this.getImagen("150x150"))}"
-                    alt="Portada de ${escapeHTML(this.nombre)}" loading="lazy" ${ON_ERROR_IMG}>
-                <h3 class="item-titulo">${escapeHTML(this.nombre)}</h3>
+                    alt="Portada de ${escapeHTML(this.title)}" loading="lazy" ${ON_ERROR_IMG}>
+                <h3 class="item-titulo">${escapeHTML(this.title)}</h3>
                 <p class="item-artista">${escapeHTML(this.nombreArtista)}</p>
                 <p class="item-meta">${escapeHTML(this.genre ?? "Sin género")} · ${this.duracionMin}</p>
                 ${estrellas}
@@ -129,8 +130,8 @@ export class Item
         return `
             <div class="item-detalle" data-id="${escapeHTML(this.id)}">
                 <img src="${escapeHTML(this.getImagen("480x480"))}"
-                    alt="Portada de ${escapeHTML(this.nombre)}" ${ON_ERROR_IMG}>
-                <h2>${escapeHTML(this.nombre)}</h2>
+                    alt="Portada de ${escapeHTML(this.title)}" ${ON_ERROR_IMG}>
+                <h2>${escapeHTML(this.title)}</h2>
 
                 <ul class="item-detalle-lista">
                     ${lista}
@@ -176,7 +177,7 @@ export class Item
         item.artwork = obj.artwork ?? null;
         item.genre = obj.genre;
         item.mood = obj.mood;
-        item.duration = obj.duration;
+        item.duration = Number(obj.duration) || 0;
         item.releaseDate = obj.releaseDate;
         item.description = obj.description;
         
