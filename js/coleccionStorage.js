@@ -3,8 +3,10 @@
 // reconstruir instancias de Item y actualizar su valoración y comentario.
 // eliminar un item o vaciar toda la colección.
 // convertir los datos con JSON.stringify() y JSON.parse().
+import {Item} from "./item.js";
+
 const CLAVE_COLECCION = "coleccion";
-class ColeccionStorage{
+export class ColeccionStorage{
 
     static obtenerTodos(){
         const datos = localStorage.getItem(CLAVE_COLECCION);
@@ -12,7 +14,11 @@ class ColeccionStorage{
             return [];
         }
         try{
-            return JSON.parse(datos);
+            const coleccion = JSON.parse(datos);
+            if(Array.isArray(coleccion)){
+                return coleccion;
+            }
+            return [];
         } catch(error){
             return [];
         }    
