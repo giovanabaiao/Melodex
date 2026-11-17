@@ -1,4 +1,5 @@
 import { inicializarBuscador } from './buscador.js';
+import { inicializarAjustes } from './ajustes.js';
 
 const SECCIONES = [
   'inicio',
@@ -13,7 +14,8 @@ const INICIALIZADORES = {
   buscador: inicializarBuscador,
   coleccion: () => { },
   gestionColeccion: () => { },
-  estadisticas: () => { }
+  estadisticas: () => { },
+  ajustes: inicializarAjustes
 };
 
 async function cargarSeccion(nombre) {
