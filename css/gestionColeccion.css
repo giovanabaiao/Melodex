@@ -1,8 +1,162 @@
-/* Acciones globales y lista de gestión de la colección. */
+/* ---------- Botón "Vaciar colección" ---------- */
+
 #acciones-gestion {
   margin-bottom: 24px;
+  padding: 14px;
+  border: 1px solid var(--color-borde);
+}
+
+/* Botón rojo, sin sombra */
+#btn-vaciar {
+  padding: 10px 22px;
+  border: 1px solid #000000;
+  border-radius: 12px;
+  background: white;
+  color: var(--color-texto);
+  font-weight: bold;
+  transition: background 0.15s, color 0.15s;
+}
+
+#btn-vaciar:hover:not(:disabled),
+#btn-vaciar:active:not(:disabled),
+#btn-vaciar:focus-visible:not(:disabled) {
+  background: #d9534f;
+  color: #ffffff;
+  border-color: #d9534f;
+}
+
+#btn-vaciar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#lista-gestion {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;          
+  padding: 0;
+  border: none;
+  background: transparent;
 }
 
 #lista-gestion:empty {
   display: none;
+}
+
+#lista-gestion > p {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+/* ---------- Tarjeta (cada una con su sombra) ---------- */
+
+.gestion-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--color-borde);
+  border-radius: 18px;
+  background: var(--color-control);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.gestion-item .item-card {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  cursor: default;
+}
+
+.gestion-item .item-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.gestion-item .item-titulo {
+  margin: 10px 0 2px;
+  font-size: 1rem;
+}
+
+.gestion-item .item-artista,
+.gestion-item .item-meta,
+.gestion-item .item-valoracion {
+  margin: 2px 0;
+  font-size: 0.85rem;
+}
+
+/* ---------- Botones y formulario de edición ---------- */
+
+.gestion-acciones,
+.gestion-edicion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gestion-edicion label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.gestion-edicion select,
+.gestion-edicion textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.gestion-edicion textarea {
+  resize: vertical;
+}
+
+.gestion-acciones button,
+.gestion-edicion button {
+  flex: 1;
+  padding: 7px 12px;
+  border-radius: 10px;
+}
+
+.gestion-acciones button[data-accion="editar"],
+.gestion-edicion button[data-accion="guardar"] {
+  background: var(--color-principal);
+  border-color: var(--color-principal);
+  color: var(--color-principal-contraste);
+  font-weight: bold;
+}
+
+/* Eliminar: rojo suave */
+.gestion-acciones button[data-accion="eliminar"] {
+  background: transparent;
+  border-color: #d9534f;
+  color: #d9534f;
+}
+
+.gestion-acciones button[data-accion="eliminar"]:hover {
+  background: #d9534f;
+  color: #ffffff;
+}
+
+/* ---------- Pantallas medianas y pequeñas ---------- */
+
+@media (max-width: 1100px) {
+  #lista-gestion {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  #lista-gestion {
+    grid-template-columns: 1fr;
+  }
 }
