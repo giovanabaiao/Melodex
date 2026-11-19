@@ -1,5 +1,6 @@
 import { buscarEnApi } from './api.js';
 import { Item } from './item.js';
+import { inicializarGuardado } from './guardarItem.js';
 
 // Muestra un mensaje dentro de un contenedor.
 function mostrarMensaje(contenedor, mensaje) {
@@ -113,5 +114,8 @@ export function inicializarBuscador() {
 
     // Muestra todas las propiedades y los campos del usuario.
     detalleItem.innerHTML = itemSeleccionado.toDetalleHTML();
+
+    // Conecta el botón de guardar con el item seleccionado.
+    inicializarGuardado(itemSeleccionado);
   });
 }
