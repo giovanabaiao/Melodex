@@ -106,8 +106,14 @@ function guardarCambios(detalle)
     const valoracion = detalle.querySelector('#gestion-valoracion').value;
     const comentario = detalle.querySelector('#gestion-comentario').value;
 
-    const nuevaValoracion = valoracion === '' ? null : Number(valoracion);
+    const nuevaValoracion = Number(valoracion);
     const nuevoComentario = comentario.trim();
+
+    if ( !Number.isInteger(nuevaValoracion) ||  nuevaValoracion < 1 || nuevaValoracion > 5 ) 
+    {
+      alert('La valoración debe estar entre 1 y 5.');
+      return;
+    }
 
     const sinCambios =
       nuevaValoracion === item.valoracion &&

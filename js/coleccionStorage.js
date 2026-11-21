@@ -42,7 +42,7 @@ export class ColeccionStorage{
 
     static eliminar(id){
         const datos = ColeccionStorage.obtenerTodos();
-        const canciones = datos.filter(cancion => cancion.id !== id);
+        const canciones = datos.filter(cancion => String(cancion.id) !== String(id));
         localStorage.setItem(CLAVE_COLECCION, JSON.stringify(canciones));
     }
 
