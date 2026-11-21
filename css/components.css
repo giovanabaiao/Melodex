@@ -59,3 +59,21 @@ textarea {
 .item-card.seleccionado {
   outline: 2px solid var(--color-principal);
 }
+
+.item-detalle label[for="detalle-comentario"] {
+  display: block;
+  margin-top: 16px;
+  margin-bottom: 6px;
+}
+
+.item-detalle textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.item-detalle #btn-guardar {
+  display: block;
+  margin-top: 12px;
+}
