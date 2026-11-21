@@ -4,22 +4,35 @@ import { ColeccionStorage } from "./coleccionStorage.js";
 export function inicializarEstadisticas(){
 
     const canciones = ColeccionStorage.obtenerTodos();
+    /* Seleccionar solo las canciones con una valoración válida entre 1 y 5 */
+    const cancionesValoradas = canciones.filter((cancion) =>{
+        const valoracion = Number(cancion.valoracion);
+        if(Number.isInteger(valoracion) && valoracion >= 1 && valoracion <= 5){
+            return true;
+        }
+        else{
+            return false;
+        }
+    });
+
 
     /*Calcular y mostrar el número total de canciones */
     const totalCanciones = canciones.reduce((contador, cancion) => contador + 1, 0);
     document.getElementById("total-canciones").textContent = totalCanciones;
 
+
     /* Calcular la valoración media */
-    const sumaValoraciones = canciones.reduce((suma, cancion) => suma + cancion.valoracion, 0);
+    const sumaValoraciones = cancionesValoradas.reduce((suma, cancion) => suma + Number(cancion.valoracion), 0);
     let media = 0;
-    if(canciones.length > 0){
-        media = sumaValoraciones / canciones.length;
+    if(cancionesValoradas.length > 0){
+        media = sumaValoraciones / cancionesValoradas.length;
     }
     document.getElementById("valoracion-media").textContent = media.toFixed(2);
 
+
     /* Buscar canción la valoración más alta */
-    const mejorCancion = canciones.reduce((mejor, cancion) => {
-        if(mejor === null || cancion.valoracion > mejor.valoracion){
+    const mejorCancion = cancionesValoradas.reduce((mejor, cancion) => {
+        if(mejor === null || Number(cancion.valoracion) > Number(mejor.valoracion)){
             return cancion;
         }
         return mejor;
@@ -31,9 +44,10 @@ export function inicializarEstadisticas(){
         document.getElementById("mejor-cancion").textContent = "-";
     }
 
+
     /* Buscar canción la valoración más baja */
-    const peorCancion = canciones.reduce((peor, cancion) => {
-        if(peor === null || cancion.valoracion < peor.valoracion){
+    const peorCancion = cancionesValoradas.reduce((peor, cancion) => {
+        if(peor === null || Number(cancion.valoracion) < Number(peor.valoracion)){
             return cancion;
         }
         return peor;
@@ -45,6 +59,7 @@ export function inicializarEstadisticas(){
         document.getElementById("peor-cancion").textContent = "-";
     }
 
+    
     /* Calcular número de canciones por género */
     const distribucion = canciones.reduce((generos, cancion) => {
         const genero = cancion.genre || "Sin género";
