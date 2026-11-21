@@ -46,6 +46,18 @@ export class ColeccionStorage{
         localStorage.setItem(CLAVE_COLECCION, JSON.stringify(canciones));
     }
 
+    static actualizar(item)
+    {
+            const datos = ColeccionStorage.obtenerTodos();
+            const indice = datos.findIndex(cancion => String(cancion.id) === String(item.id));
+            if(indice === -1){
+                return false;
+            }
+            datos[indice] = item.toStorageObject();
+            localStorage.setItem(CLAVE_COLECCION, JSON.stringify(datos));
+            return true;
+    }
+
     static vaciar(){
         localStorage.removeItem(CLAVE_COLECCION);
     }

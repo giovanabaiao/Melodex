@@ -1,9 +1,26 @@
 <h2>Gestionar Colección</h2>
 
 <div id="acciones-gestion" class="panel">
-  <button id="btn-vaciar">Vaciar colección</button>
+  <button type="button" id="btn-vaciar">Vaciar colección</button>
 </div>
 
-<div id="lista-gestion" class="panel">
-  <p>Todavía no has guardado ninguna canción.</p>
+<div class="coleccion-contenido">
+
+  <!-- Lista de items recuperados desde localStorage. -->
+  <section id="items-gestion" class="panel">
+    <h3>Items guardados</h3>
+
+    <div id="lista-gestion">
+      <p>Todavía no has guardado ningún item.</p>
+    </div>
+  </section>
+
+  <div id="panel-gestion" class="panel">
+    <h3>Item seleccionado</h3>
+
+    <div id="detalle-gestion">
+      <p>Selecciona un item para modificarlo o eliminarlo.</p>
+    </div>
+  </div>
+
 </div>

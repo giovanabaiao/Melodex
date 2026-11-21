@@ -60,7 +60,8 @@ textarea {
   outline: 2px solid var(--color-principal);
 }
 
-.item-detalle label[for="detalle-comentario"] {
+.item-detalle label[for="detalle-comentario"],
+.item-detalle label[for="gestion-comentario"] {
   display: block;
   margin-top: 16px;
   margin-bottom: 6px;
