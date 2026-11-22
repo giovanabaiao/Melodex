@@ -198,8 +198,10 @@ function recargarColeccion(){
 export function inicializarColeccion(){
     crearControles();
 
-    // Al pulsar el botón, se elige y muestra una canción aleatoria.
-    document.getElementById('btn-sorprendeme').addEventListener('click', sorprender);
+    // Al pulsar el botón, se elige y muestra una canción aleatoria de la colección.
+document
+    .getElementById('btn-sorprendeme')
+    .addEventListener('click', sorprender);
 
     recargarColeccion();
 
@@ -210,36 +212,55 @@ export function inicializarColeccion(){
     document.querySelector('#menu-principal button[data-seccion="coleccion"]').addEventListener('click', recargarColeccion);
 }
 
-//EXTRA: BOTON SORPRENDEME-------------------------------------------
+// EXTRA: selecciona una canción aleatoria de Mi colección.
+function sorprender() {
+    // Respeta los filtros y la ordenación actuales.
+    const lista = ordenar(filtrar(items));
 
-//Creamos una función que va elegir una canción al azar pero sigue respetando filtros y orden
-function sorprender(){
-    const lista=ordenar(filtrar(items)); //como actualizarVista(), filtramos y ordenamos
+    if (lista.length === 0) {
+        const mensaje = items.length === 0
+            ? 'No hay canciones guardadas. Guarda alguna desde el Buscador.'
+            : 'No hay canciones que coincidan con los filtros actuales.';
 
-    if(lista.length==0){ //Si no hay ninguna canción visible
-        document.getElementById('detalle-coleccion').innerHTML=
-            '<p>No hay canciones para sorprenderte. Guarda alguna desde el Buscador.</p>';
+        itemSeleccionado = null;
+
+        document.getElementById('detalle-coleccion').innerHTML =
+            `<p>${mensaje}</p>`;
+
         return;
     }
 
-    //Pillamos todas las canciones, menos la que esta seleccionada en el momento (para no repetir)
-    let candidatas=lista.filter(item => item !== itemSeleccionado);
+    // Evita repetir la canción seleccionada si existen otras opciones.
+    let candidatas = itemSeleccionado
+        ? lista.filter(
+            item => String(item.id) !== String(itemSeleccionado.id)
+        )
+        : lista;
 
-    if (candidatas.length ==0){ //en el caso de que solo tengamos una canción visible, pues elegimos esa (unica opción)
-        candidatas=lista;
+    // Si solo hay una canción visible, se selecciona esa.
+    if (candidatas.length === 0) {
+        candidatas = lista;
     }
 
-    //matematica para elegir un índice valido 
-    const elegido = candidatas[Math.floor(Math.random() * candidatas.length)];
+    // Selecciona un índice aleatorio válido.
+    const indiceAleatorio = Math.floor(
+        Math.random() * candidatas.length
+    );
+
+    const elegido = candidatas[indiceAleatorio];
 
     mostrarDetalle(elegido);
     pintarLista(lista);
 
-    //desplazar hacia la tarjeta elegida
-    const tarjeta=document.querySelector(
-         `#lista-coleccion [data-id="${CSS.escape(String(elegido.id))}"]`
+    // Desplaza la página hasta la tarjeta seleccionada.
+    const tarjeta = document.querySelector(
+        `#lista-coleccion [data-id="${CSS.escape(String(elegido.id))}"]`
     );
+
     if (tarjeta) {
-        tarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        tarjeta.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
     }
 }
