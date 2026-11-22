@@ -1,9 +1,136 @@
-<h2>Inicio</h2>
+<h2 data-icono="inicio">Inicio</h2>
 
-<!-- Presentación breve del objetivo de la aplicación. -->
+<!-- Banner de bienvenida. -->
+<div class="panel hero">
+  <div class="hero-texto">
+    <p class="hero-etiqueta">Tu música, tu colección</p>
+    <h3 class="hero-titulo">Descubre, escucha y valora canciones</h3>
+    <p class="hero-descripcion">
+      Busca canciones en Audius, escúchalas al instante y guárdalas con tu propia
+      valoración y comentario.
+    </p>
+    <div class="hero-acciones">
+      <button type="button" class="btn-primario" data-ir="buscador">Buscar música</button>
+      <button type="button" class="btn-secundario" data-ir="coleccion">Ver mi colección</button>
+    </div>
+  </div>
+
+  <!-- Ilustración: tocadiscos con vinilo giratorio, notas flotantes y ecualizador. -->
+  <div class="hero-visual" aria-hidden="true">
+    <svg viewBox="0 0 280 280" class="tocadiscos">
+      <defs>
+        <radialGradient id="hv-aura" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#2563eb" stop-opacity=".45"/>
+          <stop offset=".6" stop-color="#7c3aed" stop-opacity=".18"/>
+          <stop offset="1" stop-color="#7c3aed" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="hv-etiqueta" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#38bdf8"/>
+          <stop offset=".55" stop-color="#2563eb"/>
+          <stop offset="1" stop-color="#7c3aed"/>
+        </linearGradient>
+        <linearGradient id="hv-disco" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#2a2f45"/>
+          <stop offset="1" stop-color="#0c0e17"/>
+        </linearGradient>
+        <linearGradient id="hv-reflejo" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity=".5"/>
+          <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="hv-brazo" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#e2e8f0"/>
+          <stop offset="1" stop-color="#94a3b8"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Aura de color -->
+      <circle cx="140" cy="140" r="138" fill="url(#hv-aura)"/>
+
+      <!-- Vinilo (gira) -->
+      <g class="vinilo-giro">
+        <circle cx="140" cy="140" r="104" fill="url(#hv-disco)"/>
+        <circle cx="140" cy="140" r="104" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="1.5"/>
+        <circle cx="140" cy="140" r="92" class="vinilo-surco"/>
+        <circle cx="140" cy="140" r="82" class="vinilo-surco"/>
+        <circle cx="140" cy="140" r="72" class="vinilo-surco"/>
+        <circle cx="140" cy="140" r="62" class="vinilo-surco"/>
+        <!-- Reflejos de luz opuestos -->
+        <path d="M140 140L140 36A104 104 0 0 1 213 66Z" fill="url(#hv-reflejo)" opacity=".5"/>
+        <path d="M140 140L140 244A104 104 0 0 1 67 214Z" fill="url(#hv-reflejo)" opacity=".35"/>
+        <!-- Etiqueta central -->
+        <circle cx="140" cy="140" r="42" fill="url(#hv-etiqueta)"/>
+        <circle cx="140" cy="140" r="42" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/>
+        <circle cx="140" cy="140" r="31" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="1" stroke-dasharray="2 4"/>
+        <path d="M134 150v-19l15-3.4v17" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <ellipse cx="130.6" cy="150.6" rx="4.8" ry="3.8" fill="#fff" transform="rotate(-18 130.6 150.6)"/>
+        <ellipse cx="145.6" cy="145.6" rx="4.8" ry="3.8" fill="#fff" transform="rotate(-18 145.6 145.6)"/>
+      </g>
+      <circle cx="140" cy="140" r="4.5" fill="#0c0e17" stroke="#fff" stroke-opacity=".6" stroke-width="1.2"/>
+
+      <!-- Brazo del tocadiscos -->
+      <g class="brazo">
+        <circle cx="250" cy="34" r="15" fill="#1e2233"/>
+        <circle cx="250" cy="34" r="15" fill="none" stroke="#fff" stroke-opacity=".25"/>
+        <circle cx="250" cy="34" r="6" fill="url(#hv-brazo)"/>
+        <path d="M250 34L216 118" stroke="url(#hv-brazo)" stroke-width="5" stroke-linecap="round"/>
+        <rect x="203" y="112" width="18" height="30" rx="5" transform="rotate(-22 212 127)" fill="url(#hv-brazo)"/>
+        <rect x="207" y="136" width="9" height="6" rx="2" transform="rotate(-22 212 139)" fill="#38bdf8"/>
+      </g>
+
+      <!-- Notas flotantes -->
+      <g class="nota-flota n1">
+        <rect x="14" y="40" width="38" height="38" rx="12" fill="#fff" fill-opacity=".85" stroke="#2563eb" stroke-opacity=".25"/>
+        <path d="M27 66V53l10-2v11" fill="none" stroke="#2563eb" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="24.5" cy="66.4" r="3.1" fill="#2563eb"/><circle cx="34.5" cy="62.4" r="3.1" fill="#2563eb"/>
+      </g>
+      <g class="nota-flota n2">
+        <rect x="8" y="196" width="34" height="34" rx="11" fill="#fff" fill-opacity=".85" stroke="#7c3aed" stroke-opacity=".25"/>
+        <path d="M25 220.5l-2.6-4.6M25 220.5V211m0 0l6-1.4" fill="none" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="21.6" cy="221" r="2.8" fill="#7c3aed"/>
+      </g>
+
+      <!-- Ecualizador -->
+      <g class="eq-hero" fill="#2563eb">
+        <rect x="198" y="226" width="7" height="24" rx="3.5"/>
+        <rect x="210" y="226" width="7" height="24" rx="3.5" fill="#7c3aed"/>
+        <rect x="222" y="226" width="7" height="24" rx="3.5"/>
+        <rect x="234" y="226" width="7" height="24" rx="3.5" fill="#38bdf8"/>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- Tarjetas de resumen: se rellenan en js/inicio.js. -->
+<div class="stats-grid">
+  <div class="stat-card" data-tono="verde">
+    <div class="stat-texto">
+      <p class="stat-etiqueta">Canciones guardadas</p>
+      <p class="stat-valor" id="inicio-total">0</p>
+      <p class="stat-sub">en tu colección</p>
+    </div>
+    <div class="stat-visual" id="inicio-total-visual"></div>
+  </div>
+
+  <div class="stat-card" data-tono="amarillo">
+    <div class="stat-texto">
+      <p class="stat-etiqueta">Valoración media</p>
+      <p class="stat-valor" id="inicio-media">0.0</p>
+      <p class="stat-sub">sobre 5 estrellas</p>
+    </div>
+    <div class="stat-visual ancho" id="inicio-media-visual"></div>
+  </div>
+
+  <div class="stat-card" data-tono="violeta">
+    <div class="stat-texto">
+      <p class="stat-etiqueta">Género favorito</p>
+      <p class="stat-valor texto" id="inicio-genero">—</p>
+      <p class="stat-sub" id="inicio-genero-sub">guarda canciones para verlo</p>
+    </div>
+    <div class="stat-visual" id="inicio-genero-visual"></div>
+  </div>
+</div>
+
 <div class="panel">
-  <p>
-    Bienvenido/a a Melodex. Esta aplicación permite buscar canciones
-    en Audius y guardarlas en una colección personal.
-  </p>
+  <h3 data-icono="reciente">Últimas guardadas</h3>
+  <div id="inicio-recientes"></div>
 </div>

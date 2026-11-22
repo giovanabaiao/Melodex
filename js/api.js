@@ -12,9 +12,9 @@ export async function buscarEnApi(termino, tipo) {
   let url;
 
   if (tipo === "id") {
-    url = `${API_BASE_URL}/tracks/${terminoCodificado}`;
+    url = `${API_BASE_URL}/tracks/${terminoCodificado}?app_name=Melodex`;
   } else {
-    url = `${API_BASE_URL}/tracks/search?query=${terminoCodificado}`;
+    url = `${API_BASE_URL}/tracks/search?query=${terminoCodificado}&app_name=Melodex`;
   }
 
   const respuesta = await fetch(url);

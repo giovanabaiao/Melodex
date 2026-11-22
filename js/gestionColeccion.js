@@ -1,5 +1,7 @@
 
 import { ColeccionStorage } from './coleccionStorage.js';
+import { mostrarToast } from './toast.js';
+import { confirmar } from './dialogo.js';
 
 let items = [];
 let idSeleccionado = null;
@@ -84,6 +86,15 @@ function recargar()
 
 }
 
+// En pantallas pequeñas el detalle queda debajo de la lista: se desplaza hasta él.
+function verDetalleEnMovil(idPanel)
+{
+  if (window.matchMedia('(max-width: 800px)').matches)
+  {
+    document.getElementById(idPanel).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
 function alPulsarLista(evento) 
 {
   const tarjeta = evento.target.closest('.item-card');
@@ -94,6 +105,7 @@ function alPulsarLista(evento)
 
   mostrarDetalle(item);
   pintarLista();
+  verDetalleEnMovil('panel-gestion');
 }
 
 function guardarCambios(detalle) 
@@ -111,7 +123,7 @@ function guardarCambios(detalle)
 
     if ( !Number.isInteger(nuevaValoracion) ||  nuevaValoracion < 1 || nuevaValoracion > 5 ) 
     {
-      alert('La valoración debe estar entre 1 y 5.');
+      mostrarToast('La valoración debe estar entre 1 y 5.', 'error');
       return;
     }
 
@@ -121,7 +133,7 @@ function guardarCambios(detalle)
 
     if (sinCambios) 
     {
-      alert('No has modificado nada.');
+      mostrarToast('No has modificado nada.', 'info');
       return;
     }
 
@@ -133,34 +145,54 @@ function guardarCambios(detalle)
     idSeleccionado = null;
     recargar();
 
-    alert(guardado
-      ? 'Los cambios se han guardado correctamente.'
-      : 'No se encontró la canción en la colección.');
+    mostrarToast(
+      guardado
+        ? 'Los cambios se han guardado correctamente.'
+        : 'No se encontró la canción en la colección.',
+      guardado ? 'ok' : 'error'
+    );
   } 
   catch (error) 
   {
     console.error(error);
-    alert('No se pudieron guardar los cambios.');
+    mostrarToast('No se pudieron guardar los cambios.', 'error');
   }
 }
 
-function eliminarSeleccionado() 
+async function eliminarSeleccionado() 
 {
   if (idSeleccionado === null) return;
+
+  const item = items.find(i => String(i.id) === idSeleccionado);
+
+  const seguro = await confirmar({
+    titulo: '¿Eliminar esta canción?',
+    mensaje: `"${item ? item.title : 'La canción'}" se quitará de tu colección. Esta acción no se puede deshacer.`,
+    textoOk: 'Eliminar',
+    peligro: true,
+  });
+  if (!seguro) return;
 
   ColeccionStorage.eliminar(idSeleccionado);
   idSeleccionado = null;
   recargar();
+  mostrarToast('Canción eliminada de tu colección.', 'info');
 }
 
-function vaciarColeccion() 
+async function vaciarColeccion() 
 {
-  const seguro = confirm('¿Seguro que quieres vaciar toda la colección?');
+  const seguro = await confirmar({
+    titulo: '¿Vaciar toda la colección?',
+    mensaje: `Se eliminarán las ${items.length} canciones guardadas. Esta acción no se puede deshacer.`,
+    textoOk: 'Vaciar colección',
+    peligro: true,
+  });
   if (!seguro) return;
 
   ColeccionStorage.vaciar();
   idSeleccionado = null;
   recargar();
+  mostrarToast('Colección vaciada.', 'info');
 }
 
 export function inicializarGestionColeccion() 

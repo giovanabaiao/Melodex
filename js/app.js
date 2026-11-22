@@ -3,6 +3,10 @@ import { inicializarAjustes } from './ajustes.js';
 import { inicializarGestionColeccion } from './gestionColeccion.js';
 import { inicializarColeccion } from './coleccion.js';
 import { inicializarEstadisticas } from './estadisticas.js';
+import { inicializarInicio } from './inicio.js';
+import { inicializarReproductor } from './reproductor.js';
+import { decorarIconos } from './iconos.js';
+import { inicializarSelects } from './selectPersonalizado.js';
 
 
 const SECCIONES = [
@@ -14,10 +18,10 @@ const SECCIONES = [
   'ajustes'
 ];
 
-const INICIALIZADORES = 
+const INICIALIZADORES =
 {
+  inicio: inicializarInicio,
   buscador: inicializarBuscador,
-  gestionColeccion: inicializarGestionColeccion,
   coleccion: inicializarColeccion,
   gestionColeccion: inicializarGestionColeccion,
   estadisticas: inicializarEstadisticas,
@@ -36,6 +40,9 @@ async function cargarSeccion(nombre) {
 
     contenedor.innerHTML = await respuesta.text();
 
+    // Inserta el SVG temático junto a cada título con data-icono.
+    decorarIconos(contenedor);
+
     if (INICIALIZADORES[nombre]) {
       INICIALIZADORES[nombre]();
     }
@@ -45,34 +52,61 @@ async function cargarSeccion(nombre) {
   }
 }
 
+let temporizadorCambio = null;
+
 function mostrarSeccion(nombre) {
-  document
-    .querySelectorAll('.seccion')
-    .forEach(sec => sec.classList.remove('activa'));
+  const nueva = document.getElementById(`seccion-${nombre}`);
+  const anterior = document.querySelector('.seccion.activa, .seccion.saliendo');
 
-  document
-    .getElementById(`seccion-${nombre}`)
-    .classList.add('activa');
-
+  // El menú cambia al instante.
   document
     .querySelectorAll('#menu-principal button')
     .forEach(btn => btn.classList.remove('active'));
 
-  const boton = document.querySelector(
-    `#menu-principal button[data-seccion="${nombre}"]`
-  );
+  document
+    .querySelector(`#menu-principal button[data-seccion="${nombre}"]`)
+    ?.classList.add('active');
 
-  if (boton) {
-    boton.classList.add('active');
+  // Dirección de la animación según el orden del menú.
+  const desde = SECCIONES.indexOf(anterior?.id.replace('seccion-', ''));
+  const hasta = SECCIONES.indexOf(nombre);
+  const direccion = hasta >= desde ? 'desde-der' : 'desde-izq';
+
+  clearTimeout(temporizadorCambio);
+
+  const entrar = () => {
+    document
+      .querySelectorAll('.seccion')
+      .forEach(sec => sec.classList.remove('activa', 'saliendo', 'desde-der', 'desde-izq'));
+
+    nueva.classList.add('activa', direccion);
+
+    // Actualiza los datos al entrar en estas secciones
+    if (nombre === 'estadisticas') {
+      inicializarEstadisticas();
+    }
+    if (nombre === 'inicio') {
+      inicializarInicio();
+    }
+  };
+
+  if (!anterior || anterior === nueva) {
+    entrar();
+  } else {
+    // Primero se desvanece la sección anterior y después entra la nueva.
+    anterior.classList.remove('activa');
+    anterior.classList.add('saliendo');
+    temporizadorCambio = setTimeout(entrar, 170);
   }
 
-  //Actualiza las estadísticas al entrar en su sección
-  if(nombre === "estadisticas"){
-    inicializarEstadisticas();
-  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 async function iniciarApp() {
+  decorarIconos(document.getElementById('menu-principal'));
+  inicializarReproductor();
+  inicializarSelects();
+
   await Promise.all(SECCIONES.map(cargarSeccion));
   mostrarSeccion('inicio');
 }
@@ -86,5 +120,17 @@ document
 
     mostrarSeccion(boton.dataset.seccion);
   });
+
+// Botones de acceso rápido dentro de las secciones (data-ir="buscador", etc.).
+document.addEventListener('click', (evento) => {
+  const atajo = evento.target.closest('[data-ir]');
+
+  if (!atajo) return;
+
+  // Se simula el clic en el menú para que cada sección recargue sus datos.
+  document
+    .querySelector(`#menu-principal button[data-seccion="${atajo.dataset.ir}"]`)
+    ?.click();
+});
 
 iniciarApp();

@@ -1,18 +1,49 @@
-  <h2>Estadísticas de mi colección</h2>
+<h2 data-icono="estadisticas">Estadísticas de mi colección</h2>
 
-  <!-- Número total de canciones guardadas. -->
-    <p>Total de canciones: <span id = "total-canciones">0</span></p>
+<!-- Resumen numérico. -->
+<div class="stats-grid cuatro">
+  <div class="stat-card" data-tono="verde">
+    <div class="stat-texto">
+      <p class="stat-etiqueta">Total de canciones</p>
+      <p class="stat-valor" id="total-canciones">0</p>
+    </div>
+  </div>
 
-  <!-- Media de las valoraciones. -->
-    <p>Valoración media: <span id = "valoracion-media">0</span></p>
+  <div class="stat-card" data-tono="amarillo">
+    <div class="stat-texto">
+      <p class="stat-etiqueta">Valoración media</p>
+      <p class="stat-valor" id="valoracion-media">0</p>
+    </div>
+  </div>
 
-  <!-- Canciones con mejor y peor valoración. -->
-   <p>Mejor canción: <span id = "mejor-cancion">-</span></p>
-   <p>Peor canción: <span id = "peor-cancion">-</span></p>
+  <div class="stat-card" data-tono="azul">
+    <div class="stat-texto">
+      <p class="stat-etiqueta">Mejor canción</p>
+      <p class="stat-valor texto" id="mejor-cancion">-</p>
+    </div>
+  </div>
 
-  <!-- Distribución canciones por género. -->
-   <h3>Distribución por género</h3>
-   <div id = "distribucion-generos"></div>
+  <div class="stat-card" data-tono="rosa">
+    <div class="stat-texto">
+      <p class="stat-etiqueta">Peor canción</p>
+      <p class="stat-valor texto" id="peor-cancion">-</p>
+    </div>
+  </div>
+</div>
 
-  <!-- Mensaje para cuando la colección esté vacía. -->
-   <p id = "mensaje-estadisticas"></p>
+<div class="estadisticas-paneles">
+  <!-- Distribución de canciones por género. -->
+  <div class="panel">
+    <h3 data-icono="genero">Distribución por género</h3>
+    <div id="distribucion-generos" class="barras"></div>
+  </div>
+
+  <!-- Cuántas canciones hay con cada nota. -->
+  <div class="panel">
+    <h3 data-icono="estrella">Distribución por valoración</h3>
+    <div id="distribucion-valoraciones" class="barras"></div>
+  </div>
+</div>
+
+<!-- Mensaje para cuando la colección esté vacía. -->
+<p id="mensaje-estadisticas" class="vacio"></p>

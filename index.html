@@ -6,7 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Melodex</title>
-  <link rel="icon" href="data:,">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffb627'/%3E%3Cstop offset='1' stop-color='%23ff3d71'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='48' height='48' rx='14' fill='url(%23g)'/%3E%3Cg fill='white'%3E%3Crect x='8.8' y='18.5' width='4' height='15' rx='2'/%3E%3Crect x='15.4' y='25' width='4' height='8.5' rx='2'/%3E%3Crect x='22' y='12.5' width='4' height='21' rx='2'/%3E%3Crect x='28.6' y='25' width='4' height='8.5' rx='2'/%3E%3Crect x='35.2' y='18.5' width='4' height='15' rx='2'/%3E%3C/g%3E%3C/svg%3E">
+
+  <!-- Tipografía Poppins (si no hay conexión se usa la fuente del sistema). -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
 
   <!-- Estilos generales y variables de colores. -->
   <link rel="stylesheet" href="css/base.css">
@@ -26,7 +31,39 @@
 
   <!-- Cabecera principal de la aplicación. -->
   <header id="cabecera">
-    <h1>Melodex</h1>
+    <h1>
+      <!-- Logotipo: icono naranja-coral con una "M" hecha de ondas de sonido dentro de un disco. -->
+      <svg class="logo" viewBox="0 0 48 48" aria-hidden="true">
+        <defs>
+          <linearGradient id="logo-fondo" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffb627"/>
+            <stop offset="1" stop-color="#ff3d71"/>
+          </linearGradient>
+          <linearGradient id="logo-brillo" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff" stop-opacity=".38"/>
+            <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+          <clipPath id="logo-recorte"><rect x="0" y="0" width="48" height="48" rx="14"/></clipPath>
+        </defs>
+        <rect width="48" height="48" rx="14" fill="url(#logo-fondo)"/>
+        <g clip-path="url(#logo-recorte)">
+          <ellipse cx="24" cy="-6" rx="34" ry="26" fill="url(#logo-brillo)"/>
+          <!-- Surcos del disco -->
+          <circle cx="24" cy="24" r="19" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.2"/>
+          <circle cx="24" cy="24" r="14.5" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="1"/>
+        </g>
+        <!-- "M" formada por barras de ecualizador -->
+        <g fill="#fff">
+          <rect x="8.8" y="18.5" width="4" height="15" rx="2"/>
+          <rect x="15.4" y="25" width="4" height="8.5" rx="2"/>
+          <rect x="22" y="12.5" width="4" height="21" rx="2"/>
+          <rect x="28.6" y="25" width="4" height="8.5" rx="2"/>
+          <rect x="35.2" y="18.5" width="4" height="15" rx="2"/>
+        </g>
+      </svg>
+      <span class="logo-texto">Melo<b>dex</b></span>
+    </h1>
+    <p class="cabecera-lema">Tu colección musical</p>
   </header>
 
   <!-- Contiene el menú lateral y la sección que se está mostrando. -->
@@ -34,27 +71,27 @@
 
     <!-- Cada botón identifica mediante data-seccion la sección que debe abrir. -->
     <nav id="menu-principal" aria-label="Navegación principal">
-      <button type="button" data-seccion="inicio" class="active">
+      <button type="button" data-seccion="inicio" data-icono="inicio" class="active">
         Inicio
       </button>
 
-      <button type="button" data-seccion="buscador">
+      <button type="button" data-seccion="buscador" data-icono="buscador">
         Buscador
       </button>
 
-      <button type="button" data-seccion="coleccion">
+      <button type="button" data-seccion="coleccion" data-icono="coleccion">
         Mi Colección
       </button>
 
-      <button type="button" data-seccion="gestionColeccion">
+      <button type="button" data-seccion="gestionColeccion" data-icono="gestion">
         Gestionar Colección
       </button>
 
-      <button type="button" data-seccion="estadisticas">
+      <button type="button" data-seccion="estadisticas" data-icono="estadisticas">
         Estadísticas
       </button>
 
-      <button type="button" data-seccion="ajustes">
+      <button type="button" data-seccion="ajustes" data-icono="ajustes">
         Ajustes
       </button>
     </nav>
@@ -87,7 +124,7 @@
 
   <!-- Pie general de la aplicación. -->
   <footer id="pie">
-    <p>Explorador de canciones · Grupo 9</p>
+    <p>Melodex · Explorador de canciones · Grupo 9</p>
   </footer>
 
   <!-- app.js se carga como módulo y gestiona sus dependencias mediante imports. -->

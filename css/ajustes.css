@@ -5,20 +5,54 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  max-width: 400px;
-  padding: 12px 16px;
+  max-width: 440px;
+  padding: 14px 18px;
   border: 1px solid var(--color-borde);
-  border-radius: 8px;
-  background: var(--color-tarjeta);
+  border-radius: 16px;
+  background: var(--color-tarjeta-solida);
 }
 
 .ajuste label {
   cursor: pointer;
+  font-weight: 500;
 }
 
+/* Interruptor tipo "switch" dibujado con CSS. */
 #interruptor-tema {
-  width: 2.75rem;
-  height: 1.4rem;
-  accent-color: var(--color-principal);
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  width: 46px;
+  height: 26px;
+  margin: 0;
   cursor: pointer;
+  border-radius: 999px;
+  background: var(--color-borde-fuerte);
+  transition: background 0.25s;
+}
+
+#interruptor-tema::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s;
+}
+
+#interruptor-tema:checked {
+  background: var(--color-principal);
+}
+
+#interruptor-tema:checked::after {
+  transform: translateX(20px);
+}
+
+#interruptor-tema:focus-visible {
+  outline: 2px solid var(--color-principal);
+  outline-offset: 3px;
 }

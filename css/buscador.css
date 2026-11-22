@@ -1,13 +1,25 @@
 /* Distribución de resultados y detalle del buscador. */
 .buscador-contenido {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 24px;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 20px;
   align-items: start;
 }
 
-#busqueda {
-  margin-bottom: 24px;
+#form-buscador {
+  display: flex;
+  gap: 10px;
+}
+
+#input-busqueda {
+  flex: 1;
+  min-width: 0;
+}
+
+#estado-busqueda {
+  margin: 12px 0 0;
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
 }
 
 #estado-busqueda:empty {

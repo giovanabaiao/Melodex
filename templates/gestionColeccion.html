@@ -1,25 +1,26 @@
-<h2>Gestionar Colección</h2>
+<h2 data-icono="gestion">Gestionar Colección</h2>
 
 <div id="acciones-gestion" class="panel">
-  <button type="button" id="btn-vaciar">Vaciar colección</button>
+  <h3 data-icono="rapido">Acciones</h3>
+  <button type="button" id="btn-vaciar" class="btn-peligro">Vaciar colección</button>
 </div>
 
 <div class="coleccion-contenido">
 
   <!-- Lista de items recuperados desde localStorage. -->
   <section id="items-gestion" class="panel">
-    <h3>Items guardados</h3>
+    <h3 data-icono="guardadas">Items guardados</h3>
 
-    <div id="lista-gestion">
-      <p>Todavía no has guardado ningún item.</p>
+    <div id="lista-gestion" class="lista-items">
+      <p class="vacio">Todavía no has guardado ningún item.</p>
     </div>
   </section>
 
-  <div id="panel-gestion" class="panel">
-    <h3>Item seleccionado</h3>
+  <div id="panel-gestion" class="panel panel-detalle">
+    <h3 data-icono="nota">Item seleccionado</h3>
 
     <div id="detalle-gestion">
-      <p>Selecciona un item para modificarlo o eliminarlo.</p>
+      <p class="vacio">Selecciona un item para modificarlo o eliminarlo.</p>
     </div>
   </div>
 

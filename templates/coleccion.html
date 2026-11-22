@@ -1,4 +1,4 @@
-<h2>Mi Colección</h2>
+<h2 data-icono="coleccion">Mi Colección</h2>
 
 <!-- Aquí se añadirán los filtros y controles de ordenación. -->
 <div id="controles-coleccion" class="panel"></div>
@@ -8,19 +8,19 @@
 
   <!-- Lista de items recuperados desde localStorage. -->
   <section id="items-coleccion" class="panel">
-    <h3>Items guardados</h3>
+    <h3 data-icono="guardadas">Items guardados</h3>
 
-    <div id="lista-coleccion">
-      <p>Todavía no has guardado ningún item.</p>
+    <div id="lista-coleccion" class="lista-items">
+      <p class="vacio">Todavía no has guardado ningún item.</p>
     </div>
   </section>
 
   <!-- Muestra todas las propiedades del item seleccionado. -->
-  <div id="panel-coleccion" class="panel">
-    <h3>Item seleccionado</h3>
+  <div id="panel-coleccion" class="panel panel-detalle">
+    <h3 data-icono="nota">Item seleccionado</h3>
 
     <div id="detalle-coleccion">
-      <p>Selecciona un item para ver sus propiedades.</p>
+      <p class="vacio">Selecciona un item para ver sus propiedades.</p>
     </div>
   </div>
 

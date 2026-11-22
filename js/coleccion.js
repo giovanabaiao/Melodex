@@ -1,5 +1,6 @@
 import { ColeccionStorage } from "./coleccionStorage.js";
 import { escapeHTML} from "./item.js";
+import { decorarIconos } from "./iconos.js";
 
 //Lista comleta de itens guardados que se rellena al inicializar
 let items=[];
@@ -14,13 +15,13 @@ function pintarLista(lista){
     const contenedor = document.getElementById('lista-coleccion');
     //Si no hay ningun item, se muestra un mensaje
     if(items.length===0){
-        contenedor.innerHTML = '<p> Todavía no has guardado ningún item.</p>';
+        contenedor.innerHTML = '<p class="vacio">Todavía no has guardado ningún item.</p>';
         return;
     }
 
     //Si hay items, se dibujan
     if (lista.length===0){
-        contenedor.innerHTML='<p> No hay items que coincidan con la búsqueda.</p>';
+        contenedor.innerHTML='<p class="vacio">No hay items que coincidan con la búsqueda.</p>';
     return;
     }
     
@@ -73,6 +74,11 @@ function alPulsarLista(evento){
     tarjeta.classList.add('seleccionado');
     
     mostrarDetalle(item); //Enseña las propiedades del item
+
+    //En pantallas pequeñas el detalle queda debajo de la lista: se desplaza hasta él
+    if (window.matchMedia('(max-width: 800px)').matches) {
+        document.getElementById('panel-coleccion').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 //ISSUE #9---------------------------------------------
@@ -82,37 +88,58 @@ function crearControles(){
 
     //las opciones de género se rellenar aparte en actualizarGewneros()
       controles.innerHTML = `
-    <label for="filtro-texto">Buscar</label>
-    <input type="text" id="filtro-texto" placeholder="Título o artista...">
+    <h3 data-icono="filtro">Filtros y orden</h3>
 
-    <label for="filtro-genero">Género</label>
-    <select id="filtro-genero">
-      <option value="">Todos</option>
-    </select>
+    <div class="controles-grid">
+      <div class="campo">
+        <label for="filtro-texto">Buscar</label>
+        <input type="text" id="filtro-texto" placeholder="Título o artista...">
+      </div>
 
-    <label for="filtro-valoracion">Valoración mínima</label>
-    <select id="filtro-valoracion">
-      <option value="0">Cualquiera</option>
-      <option value="1">1 o más</option>
-      <option value="2">2 o más</option>
-      <option value="3">3 o más</option>
-      <option value="4">4 o más</option>
-      <option value="5">5</option>
-    </select>
+      <div class="campo">
+        <label for="filtro-genero">Género</label>
+        <select id="filtro-genero">
+          <option value="">Todos</option>
+        </select>
+      </div>
 
-    <label for="orden-coleccion">Ordenar por</label>
-    <select id="orden-coleccion">
-      <option value="fecha-desc">Más recientes primero</option>
-      <option value="fecha-asc">Más antiguos primero</option>
-      <option value="titulo-asc">Título (A-Z)</option>
-      <option value="titulo-desc">Título (Z-A)</option>
-      <option value="valoracion-desc">Mejor valorados primero</option>
-      <option value="valoracion-asc">Peor valorados primero</option>
-    </select>
+      <div class="campo">
+        <label for="filtro-valoracion">Valoración mínima</label>
+        <select id="filtro-valoracion">
+          <option value="0">Cualquiera</option>
+          <option value="1">1 o más</option>
+          <option value="2">2 o más</option>
+          <option value="3">3 o más</option>
+          <option value="4">4 o más</option>
+          <option value="5">5</option>
+        </select>
+      </div>
 
-    <button type="button" id="btn-sorprendeme">🎲 Sorpréndeme</button>
+      <div class="campo">
+        <label for="orden-coleccion">Ordenar por</label>
+        <select id="orden-coleccion">
+          <option value="fecha-desc">Más recientes primero</option>
+          <option value="fecha-asc">Más antiguos primero</option>
+          <option value="titulo-asc">Título (A-Z)</option>
+          <option value="titulo-desc">Título (Z-A)</option>
+          <option value="valoracion-desc">Mejor valorados primero</option>
+          <option value="valoracion-asc">Peor valorados primero</option>
+        </select>
+      </div>
+
+      <button type="button" id="btn-sorprendeme" class="btn-primario">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="4"/>
+          <circle cx="8.5" cy="8.5" r="1" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1" fill="currentColor"/>
+          <circle cx="12" cy="12" r="1" fill="currentColor"/>
+          <circle cx="8.5" cy="15.5" r="1" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1" fill="currentColor"/>
+        </svg>
+        Sorpréndeme
+      </button>
+    </div>
   `;
 
+    decorarIconos(controles);
     controles.addEventListener('input', actualizarVista);
     controles.addEventListener('change', actualizarVista);
 }

@@ -1,1 +1,12 @@
-/* Espacio reservado para los futuros componentes de Estadísticas. */
+/* Paneles de gráficas de la sección Estadísticas. */
+.estadisticas-paneles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 800px) {
+  .estadisticas-paneles {
+    grid-template-columns: 1fr;
+  }
+}

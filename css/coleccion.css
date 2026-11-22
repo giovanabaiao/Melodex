@@ -1,13 +1,28 @@
 /* Distribución de la lista guardada y su panel de detalle. */
 .coleccion-contenido {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 24px;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 20px;
   align-items: start;
 }
 
-#controles-coleccion {
-  margin-bottom: 24px;
+.controles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px;
+  align-items: end;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-texto-suave);
 }
 
 #controles-coleccion:empty {

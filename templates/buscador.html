@@ -1,12 +1,12 @@
-<h2>Buscador</h2>
+<h2 data-icono="buscador">Buscador</h2>
 
 <!-- Formulario donde el usuario escribe el término de búsqueda. -->
 <section id="busqueda" class="panel">
 
   <form id="form-buscador">
-    <input type="text" id="input-busqueda" autocomplete="off" placeholder="Buscar...">
+    <input type="text" id="input-busqueda" autocomplete="off" placeholder="Busca una canción, artista o género...">
 
-    <button type="submit">Buscar</button>
+    <button type="submit" class="btn-primario">Buscar</button>
   </form>
 
   <!-- Mostrará estados de carga, errores o ausencia de resultados. -->
@@ -18,19 +18,19 @@
 
   <!-- Aquí se mostrarán los items devueltos por la API. -->
   <section id="resultados" class="panel">
-    <h3>Resultados</h3>
+    <h3 data-icono="resultados">Resultados</h3>
 
-    <div id="resultados-busqueda">
-      <p>Realiza una búsqueda para ver resultados.</p>
+    <div id="resultados-busqueda" class="lista-items">
+      <p class="vacio">Realiza una búsqueda para ver resultados.</p>
     </div>
   </section>
 
   <!-- Muestra las propiedades completas del item seleccionado. -->
-  <div id="panel-seleccionado" class="panel">
-    <h3>Item seleccionado</h3>
+  <div id="panel-seleccionado" class="panel panel-detalle">
+    <h3 data-icono="nota">Item seleccionado</h3>
 
     <div id="detalle-item">
-      <p>Selecciona un resultado para ver sus propiedades.</p>
+      <p class="vacio">Selecciona un resultado para ver sus propiedades.</p>
     </div>
   </div>
 

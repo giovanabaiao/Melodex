@@ -1,4 +1,5 @@
 import {ColeccionStorage} from "./coleccionStorage.js";
+import {mostrarToast} from "./toast.js";
 
 /* Guarda una canción con su valoración, comentario y fecha de guardado. */
 export function guardarItemSeleccionado(item, valoracion, comentario){
@@ -37,6 +38,6 @@ export function inicializarGuardado(itemSeleccionado){
         
         /* Guardar la canción y mostrar el mensaje correspondiente. */
         const mensaje = guardarItemSeleccionado(itemSeleccionado, valoracion, comentario);
-        alert(mensaje);
+        mostrarToast(mensaje, mensaje.startsWith("Canción guardada") ? "ok" : "error");
     });
 }

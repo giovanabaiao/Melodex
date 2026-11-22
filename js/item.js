@@ -10,6 +10,8 @@
 //   Usuario:  valoracion (1-5 o null), comentario, fechaGuardado (ISO)
 //   Derivada: imagen
 
+import { SVG_PLAY, SVG_PAUSE } from "./iconos.js";
+
 // Evita que texto con caracteres especiales (&, <, >, ", ') rompa el HTML
 
 export function escapeHTML(texto)
@@ -20,6 +22,20 @@ export function escapeHTML(texto)
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
+}
+
+/** Botón de reproducción: lo controla reproductor.js mediante los data-play-*. */
+export function botonPlayHTML({ id, titulo, artista, imagen }, clase = "")
+{
+    return `
+        <button type="button" class="btn-play ${clase}"
+                data-play-id="${escapeHTML(id)}"
+                data-play-titulo="${escapeHTML(titulo)}"
+                data-play-artista="${escapeHTML(artista)}"
+                data-play-imagen="${escapeHTML(imagen)}"
+                aria-label="Reproducir">
+            ${SVG_PLAY}${SVG_PAUSE}
+        </button>`;
 }
 
 export const IMAGEN_POR_DEFECTO =
@@ -87,17 +103,32 @@ export class Item
     {
         const v = Number(this.valoracion);
         const estrellas = v
-            ? `<p class="item-valoracion">${"★".repeat(v)}${"☆".repeat(5 - v)}</p>`
+            ? `<p class="item-valoracion" aria-label="Valoración ${v} de 5"><span class="estrella-on">${"★".repeat(v)}</span><span class="estrella-off">${"★".repeat(5 - v)}</span></p>`
             : "";
+
+        const play = botonPlayHTML({
+            id: this.id,
+            titulo: this.title,
+            artista: this.nombreArtista,
+            imagen: this.getImagen("150x150"),
+        });
 
         return `
             <article class="item-card" data-id="${escapeHTML(this.id)}">
-                <img src="${escapeHTML(this.getImagen(tamanoImagen))}"
-                    alt="Portada de ${escapeHTML(this.title)}" loading="lazy" ${ON_ERROR_IMG}>
-                <h3 class="item-titulo">${escapeHTML(this.title)}</h3>
-                <p class="item-artista">${escapeHTML(this.nombreArtista)}</p>
-                <p class="item-meta">${escapeHTML(this.genre ?? "Sin género")} · ${this.duracionMin}</p>
-                ${estrellas}
+                <div class="item-portada">
+                    <img src="${escapeHTML(this.getImagen(tamanoImagen))}"
+                        alt="Portada de ${escapeHTML(this.title)}" loading="lazy" ${ON_ERROR_IMG}>
+                    ${play}
+                </div>
+                <div class="item-info">
+                    <h3 class="item-titulo">${escapeHTML(this.title)}</h3>
+                    <p class="item-artista">${escapeHTML(this.nombreArtista)}</p>
+                    <p class="item-meta">
+                        <span class="chip">${escapeHTML(this.genre ?? "Sin género")}</span>
+                        <span class="item-duracion">${this.duracionMin}</span>
+                    </p>
+                    ${estrellas}
+                </div>
             </article>`;
     }
 
@@ -110,41 +141,62 @@ export class Item
             .join("");
 
         const campos = [
-            ["Artista", escapeHTML(this.nombreArtista)],
-            ["Género", escapeHTML(this.genre ?? "—")],
-            ["Mood", escapeHTML(this.mood ?? "—")],
-            ["Duración", this.duracionMin],
-            ["Publicación", Item.formatearFecha(this.releaseDate)],
-            ["Descripción", escapeHTML(this.description ?? "Sin descripción")],
+            ["Género", escapeHTML(this.genre ?? "—"), ""],
+            ["Mood", escapeHTML(this.mood ?? "—"), ""],
+            ["Duración", this.duracionMin, ""],
+            ["Publicación", Item.formatearFecha(this.releaseDate), ""],
         ];
 
         if (this.fechaGuardado)
         {
-            campos.push(["Guardado el", Item.formatearFecha(this.fechaGuardado)]);
+            campos.push(["Guardado el", Item.formatearFecha(this.fechaGuardado), ""]);
         }
 
+        // La descripción puede ser larga: ocupa todo el ancho y tiene su propio scroll.
+        campos.push(["Descripción", escapeHTML(this.description ?? "Sin descripción"), "ancho"]);
+
         const lista = campos
-            .map(([etiqueta, valor]) => `<li><strong>${etiqueta}:</strong> ${valor}</li>`)
+            .map(([etiqueta, valor, clase]) =>
+                `<li class="${clase}"><strong>${etiqueta}</strong><span>${valor}</span></li>`)
             .join("");
 
         return `
             <div class="item-detalle" data-id="${escapeHTML(this.id)}">
-                <img src="${escapeHTML(this.getImagen("480x480"))}"
-                    alt="Portada de ${escapeHTML(this.title)}" ${ON_ERROR_IMG}>
-                <h2>${escapeHTML(this.title)}</h2>
+                <div class="detalle-cabecera">
+                    <div class="item-portada mediana">
+                        <img src="${escapeHTML(this.getImagen("480x480"))}"
+                            alt="Portada de ${escapeHTML(this.title)}" ${ON_ERROR_IMG}>
+                        ${botonPlayHTML({
+                            id: this.id,
+                            titulo: this.title,
+                            artista: this.nombreArtista,
+                            imagen: this.getImagen("150x150"),
+                        })}
+                    </div>
+                    <div class="detalle-titulos">
+                        <h2>${escapeHTML(this.title)}</h2>
+                        <p>${escapeHTML(this.nombreArtista)}</p>
+                    </div>
+                </div>
 
                 <ul class="item-detalle-lista">
                     ${lista}
                 </ul>
 
-                <label for="detalle-valoracion">Valoración (1-5)</label>
-                <select id="detalle-valoracion">
-                    <option value="">Sin valorar</option>
-                    ${opciones}
-                </select>
+                <div class="detalle-formulario">
+                    <div class="campo">
+                        <label for="detalle-valoracion">Valoración (1-5)</label>
+                        <select id="detalle-valoracion">
+                            <option value="">Sin valorar</option>
+                            ${opciones}
+                        </select>
+                    </div>
 
-                <label for="detalle-comentario">Comentario</label>
-                <textarea id="detalle-comentario" rows="3">${escapeHTML(this.comentario)}</textarea>
+                    <div class="campo campo-ancho">
+                        <label for="detalle-comentario">Comentario</label>
+                        <textarea id="detalle-comentario" rows="3" placeholder="Escribe qué te parece esta canción...">${escapeHTML(this.comentario)}</textarea>
+                    </div>
+                </div>
 
                 <button type="button" id="btn-guardar">Guardar en colección</button>
             </div>`;
