@@ -19,6 +19,7 @@ Además, permite cambiar entre modo claro y oscuro, conservando las preferencias
 - **Sorpréndeme (extra sin IA):** permite seleccionar aleatoriamente una canción de la colección personal, respetando los filtros activos y evitando repetir la canción seleccionada cuando hay varias disponibles.
 - **Estadísticas:** muestra el número total de canciones, la valoración media, las canciones mejor y peor valoradas y la distribución por género.
 - **Personalización:** permite cambiar entre modo claro y oscuro, guardando la preferencia del usuario.
+- **Sorpréndeme (extra sin IA):** selecciona aleatoriamente una canción de la colección personal, respetando los filtros activos y evitando repetir la canción seleccionada cuando existen varias opciones.
 
 ## API utilizada
 
@@ -42,7 +43,7 @@ Melodex utiliza la API pública de Audius para buscar canciones y obtener inform
 - Audius API
 - localStorage
 
-## Decisiones técnicas
+## Estructura y funcionamiento
 
 - Las plantillas HTML se guardan en la carpeta `templates/` y se cargan con `fetch`.
 - `INICIALIZADORES`, definido en `js/app.js`, contiene las funciones que se ejecutan después de cargar cada plantilla.
