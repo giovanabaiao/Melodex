@@ -109,6 +109,8 @@ function crearControles(){
       <option value="valoracion-desc">Mejor valorados primero</option>
       <option value="valoracion-asc">Peor valorados primero</option>
     </select>
+
+    <button type="button" id="btn-sorprendeme">🎲 Sorpréndeme</button>
   `;
 
     controles.addEventListener('input', actualizarVista);
@@ -195,6 +197,12 @@ function recargarColeccion(){
 //Dibujar filtros y orden y despues cargar los items y pintar la lista por primera vez
 export function inicializarColeccion(){
     crearControles();
+
+    // Al pulsar el botón, se elige y muestra una canción aleatoria de la colección.
+document
+    .getElementById('btn-sorprendeme')
+    .addEventListener('click', sorprender);
+
     recargarColeccion();
 
     //Solo 1 listener para todas las tarjetas
@@ -202,4 +210,57 @@ export function inicializarColeccion(){
 
     //Cada vez que se pulsa MI COLECCION en el menu, se vuelve a leer el localStorage
     document.querySelector('#menu-principal button[data-seccion="coleccion"]').addEventListener('click', recargarColeccion);
+}
+
+// EXTRA: selecciona una canción aleatoria de Mi colección.
+function sorprender() {
+    // Respeta los filtros y la ordenación actuales.
+    const lista = ordenar(filtrar(items));
+
+    if (lista.length === 0) {
+        const mensaje = items.length === 0
+            ? 'No hay canciones guardadas. Guarda alguna desde el Buscador.'
+            : 'No hay canciones que coincidan con los filtros actuales.';
+
+        itemSeleccionado = null;
+
+        document.getElementById('detalle-coleccion').innerHTML =
+            `<p>${mensaje}</p>`;
+
+        return;
+    }
+
+    // Evita repetir la canción seleccionada si existen otras opciones.
+    let candidatas = itemSeleccionado
+        ? lista.filter(
+            item => String(item.id) !== String(itemSeleccionado.id)
+        )
+        : lista;
+
+    // Si solo hay una canción visible, se selecciona esa.
+    if (candidatas.length === 0) {
+        candidatas = lista;
+    }
+
+    // Selecciona un índice aleatorio válido.
+    const indiceAleatorio = Math.floor(
+        Math.random() * candidatas.length
+    );
+
+    const elegido = candidatas[indiceAleatorio];
+
+    mostrarDetalle(elegido);
+    pintarLista(lista);
+
+    // Desplaza la página hasta la tarjeta seleccionada.
+    const tarjeta = document.querySelector(
+        `#lista-coleccion [data-id="${CSS.escape(String(elegido.id))}"]`
+    );
+
+    if (tarjeta) {
+        tarjeta.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }
 }
