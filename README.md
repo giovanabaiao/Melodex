@@ -16,6 +16,7 @@ Además, permite cambiar entre modo claro y oscuro, conservando las preferencias
 - **Almacenamiento local:** conserva las canciones guardadas mediante `localStorage`, incluso después de cerrar el navegador.
 - **Gestión de la colección:** permite consultar, editar y eliminar canciones, además de vaciar la colección con confirmación.
 - **Filtros y ordenación:** permite buscar canciones guardadas por título o artista, filtrarlas por género y valoración mínima, y ordenarlas según diferentes criterios.
+- **Sorpréndeme (extra sin IA):** permite seleccionar aleatoriamente una canción de la colección personal, respetando los filtros activos y evitando repetir la canción seleccionada cuando hay varias disponibles.
 - **Estadísticas:** muestra el número total de canciones, la valoración media, las canciones mejor y peor valoradas y la distribución por género.
 - **Personalización:** permite cambiar entre modo claro y oscuro, guardando la preferencia del usuario.
 
