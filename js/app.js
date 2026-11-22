@@ -2,6 +2,7 @@ import { inicializarBuscador } from './buscador.js';
 import { inicializarAjustes } from './ajustes.js';
 import { inicializarGestionColeccion } from './gestionColeccion.js';
 import { inicializarColeccion } from './coleccion.js';
+import { inicializarEstadisticas } from './estadisticas.js';
 
 
 const SECCIONES = [
@@ -18,7 +19,8 @@ const INICIALIZADORES =
   buscador: inicializarBuscador,
   gestionColeccion: inicializarGestionColeccion,
   coleccion: inicializarColeccion,
-  estadisticas: () => { },
+  gestionColeccion: inicializarGestionColeccion,
+  estadisticas: inicializarEstadisticas,
   ajustes: inicializarAjustes
 };
 
@@ -62,6 +64,11 @@ function mostrarSeccion(nombre) {
 
   if (boton) {
     boton.classList.add('active');
+  }
+
+  //Actualiza las estadísticas al entrar en su sección
+  if(nombre === "estadisticas"){
+    inicializarEstadisticas();
   }
 }
 
