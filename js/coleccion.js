@@ -109,6 +109,8 @@ function crearControles(){
       <option value="valoracion-desc">Mejor valorados primero</option>
       <option value="valoracion-asc">Peor valorados primero</option>
     </select>
+
+    <button type="button" id="btn-sorprendeme">🎲 Sorpréndeme</button>
   `;
 
     controles.addEventListener('input', actualizarVista);
@@ -195,6 +197,10 @@ function recargarColeccion(){
 //Dibujar filtros y orden y despues cargar los items y pintar la lista por primera vez
 export function inicializarColeccion(){
     crearControles();
+
+    // Al pulsar el botón, se elige y muestra una canción aleatoria.
+    document.getElementById('btn-sorprendeme').addEventListener('click', sorprender);
+
     recargarColeccion();
 
     //Solo 1 listener para todas las tarjetas
@@ -202,4 +208,38 @@ export function inicializarColeccion(){
 
     //Cada vez que se pulsa MI COLECCION en el menu, se vuelve a leer el localStorage
     document.querySelector('#menu-principal button[data-seccion="coleccion"]').addEventListener('click', recargarColeccion);
+}
+
+//EXTRA: BOTON SORPRENDEME-------------------------------------------
+
+//Creamos una función que va elegir una canción al azar pero sigue respetando filtros y orden
+function sorprender(){
+    const lista=ordenar(filtrar(items)); //como actualizarVista(), filtramos y ordenamos
+
+    if(lista.length==0){ //Si no hay ninguna canción visible
+        document.getElementById('detalle-coleccion').innerHTML=
+            '<p>No hay canciones para sorprenderte. Guarda alguna desde el Buscador.</p>';
+        return;
+    }
+
+    //Pillamos todas las canciones, menos la que esta seleccionada en el momento (para no repetir)
+    let candidatas=lista.filter(item => item !== itemSeleccionado);
+
+    if (candidatas.length ==0){ //en el caso de que solo tengamos una canción visible, pues elegimos esa (unica opción)
+        candidatas=lista;
+    }
+
+    //matematica para elegir un índice valido 
+    const elegido = candidatas[Math.floor(Math.random() * candidatas.length)];
+
+    mostrarDetalle(elegido);
+    pintarLista(lista);
+
+    //desplazar hacia la tarjeta elegida
+    const tarjeta=document.querySelector(
+         `#lista-coleccion [data-id="${CSS.escape(String(elegido.id))}"]`
+    );
+    if (tarjeta) {
+        tarjeta.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 }
