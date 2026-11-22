@@ -83,7 +83,7 @@ export class Item
 
     
     /** Tarjeta resumida  */
-    toHTML()
+    toHTML(tamanoImagen = "150x150")
     {
         const v = Number(this.valoracion);
         const estrellas = v
@@ -92,7 +92,7 @@ export class Item
 
         return `
             <article class="item-card" data-id="${escapeHTML(this.id)}">
-                <img src="${escapeHTML(this.getImagen("150x150"))}"
+                <img src="${escapeHTML(this.getImagen(tamanoImagen))}"
                     alt="Portada de ${escapeHTML(this.title)}" loading="lazy" ${ON_ERROR_IMG}>
                 <h3 class="item-titulo">${escapeHTML(this.title)}</h3>
                 <p class="item-artista">${escapeHTML(this.nombreArtista)}</p>

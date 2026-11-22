@@ -1,8 +1,22 @@
-/* Acciones globales y lista de gestión de la colección. */
 #acciones-gestion {
   margin-bottom: 24px;
 }
 
-#lista-gestion:empty {
-  display: none;
+#btn-vaciar {
+  padding: 8px 16px;
+}
+
+#btn-vaciar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.gestion-acciones {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.gestion-acciones button {
+  padding: 8px 16px;
 }
