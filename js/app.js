@@ -1,6 +1,7 @@
 import { inicializarBuscador } from './buscador.js';
 import { inicializarAjustes } from './ajustes.js';
 import { inicializarColeccion } from './coleccion.js';
+import { inicializarEstadisticas } from './estadisticas.js';
 
 const SECCIONES = [
   'inicio',
@@ -15,7 +16,7 @@ const INICIALIZADORES = {
   buscador: inicializarBuscador,
   coleccion: inicializarColeccion,
   gestionColeccion: () => { },
-  estadisticas: () => { },
+  estadisticas: inicializarEstadisticas,
   ajustes: inicializarAjustes
 };
 
@@ -59,6 +60,11 @@ function mostrarSeccion(nombre) {
 
   if (boton) {
     boton.classList.add('active');
+  }
+
+  //Actualiza las estadísticas al entrar en su sección
+  if(nombre === "estadisticas"){
+    inicializarEstadisticas();
   }
 }
 
